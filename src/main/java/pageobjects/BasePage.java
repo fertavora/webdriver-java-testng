@@ -1,4 +1,4 @@
-package java.pageobjects;
+package pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
