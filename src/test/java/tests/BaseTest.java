@@ -1,38 +1,37 @@
 package tests;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import java.net.URL;
 
 import pageobjects.TodoMVCPage;
+import utils.PropertiesHelper;
+
+import static utils.WebdriverSetup.setWebdriver;
+import static utils.PropertiesHelper.arePropertiesDefined;
 
 public class BaseTest {
     private WebDriver driver;
     protected TodoMVCPage todoMVCPage;
-    private String appUrl = "http://todomvc.com/examples/react/#/";
-    public static final String SELENIUM_HOST = "http://localhost:4444/wd/hub";
-    
+    private static final String todoMVCUrl = "http://todomvc.com/examples/react/#/";
+
     @BeforeClass
     public void start() throws Exception{
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("browserName", "chrome");
-        caps.setCapability("platform", "linux");
-        caps.setCapability("name", "My First Test");
+        if(arePropertiesDefined()) {
+            driver = setWebdriver(PropertiesHelper.browserName, PropertiesHelper.webdriverLocation);
+            driver.manage().window().maximize();
+            driver.get(todoMVCUrl);
 
-        driver = new RemoteWebDriver(new URL(SELENIUM_HOST), caps);
-        driver.manage().window().maximize();
-        driver.get(appUrl);
-
-        todoMVCPage = new TodoMVCPage(driver);
+            todoMVCPage = new TodoMVCPage(driver);
+        } else {
+            throw new Exception("There are system properties not defined. Check configuration or missing command line parameters.");
+        }
     }
 
     @AfterClass
     public void stop() {
         driver.quit();
     }
-    
+
 
 }
