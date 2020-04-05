@@ -1,14 +1,14 @@
-package tests;
+package tech.fertavora.webdriver.tests;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-import pageobjects.TodoMVCPage;
-import utils.PropertiesHelper;
+import tech.fertavora.webdriver.pageobjects.TodoMVCPage;
+import tech.fertavora.webdriver.utils.PropertiesHelper;
 
-import static utils.WebdriverSetup.setWebdriver;
-import static utils.PropertiesHelper.arePropertiesDefined;
+import static tech.fertavora.webdriver.utils.WebdriverSetup.setWebdriver;
+import static tech.fertavora.webdriver.utils.PropertiesHelper.arePropertiesDefined;
 
 public class BaseTest {
     private WebDriver driver;

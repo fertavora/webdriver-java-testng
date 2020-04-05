@@ -2,7 +2,7 @@
 <suite name="Suite1" verbose="1" >
     <test name="Regression">
         <classes>
-            <class name="tests.FunctionalTests"/>
+            <class name="tech.fertavora.webdriver.tests.FunctionalTests"/>
         </classes>
     </test>
 </suite>

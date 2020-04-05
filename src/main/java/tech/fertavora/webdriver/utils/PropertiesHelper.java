@@ -1,4 +1,4 @@
-package utils;
+package tech.fertavora.webdriver.utils;
 
 public class PropertiesHelper {
     public static final String browserName = System.getProperty("browserName");
