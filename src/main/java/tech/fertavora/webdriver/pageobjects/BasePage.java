@@ -1,4 +1,4 @@
-package pageobjects;
+package tech.fertavora.webdriver.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
