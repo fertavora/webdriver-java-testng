@@ -11,6 +11,7 @@ import java.net.URL;
 public class WebdriverSetup {
     public static final String SELENIUM_HOST = "http://localhost:4444/wd/hub";
 
+    // todo what about using DesiredCapabilities as method argument?
     public static WebDriver setWebdriver(String browserName, String location) throws MalformedURLException {
         WebDriver driver;
 
