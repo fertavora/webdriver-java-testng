@@ -36,7 +36,7 @@ public class InventoryPage extends BasePage implements IPage {
 
     @Override
     public InventoryPage isReady() {
-        driverWait(15).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(inventoryItems));
+        driverWaitElement(ExpectedConditions.visibilityOfAllElementsLocatedBy(inventoryItems));
         return this;
     }
 

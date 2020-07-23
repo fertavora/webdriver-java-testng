@@ -1,6 +1,5 @@
 package tech.fertavora.pageobjects;
 
-import org.graalvm.compiler.nodes.InvokeWithExceptionNode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,6 +10,7 @@ public class LoginPage extends BasePage implements IPage {
     private final By inputUsername = By.id("user-name");
     private final By inputPassword = By.id("password");
     private final By buttonLogin = By.id("login-button");
+    private final By errorMessage = By.cssSelector("[data-test=\"error\"]");
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -18,8 +18,8 @@ public class LoginPage extends BasePage implements IPage {
 
     @Override
     public LoginPage isReady() {
-        driverWait(15).until(ExpectedConditions.visibilityOfElementLocated(inputUsername));
-        driverWait(15).until(ExpectedConditions.visibilityOfElementLocated(buttonLogin));
+        driverWaitElement(ExpectedConditions.visibilityOfElementLocated(inputUsername));
+        driverWaitElement(ExpectedConditions.visibilityOfElementLocated(buttonLogin));
         return this;
     }
 
@@ -41,6 +41,11 @@ public class LoginPage extends BasePage implements IPage {
     public InventoryPage clickLoginButton() {
         this.driver.findElement(buttonLogin).click();
         return new InventoryPage(this.driver);
+    }
+
+    public String getErrorMessage() {
+        driverWaitElement(ExpectedConditions.visibilityOfElementLocated(errorMessage));
+        return driver.findElement(errorMessage).getText();
     }
 
     @Override

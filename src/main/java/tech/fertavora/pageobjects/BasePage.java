@@ -1,6 +1,7 @@
 package tech.fertavora.pageobjects;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
@@ -11,7 +12,8 @@ public abstract class BasePage {
         this.driver = driver;
     }
 
-    protected WebDriverWait driverWait(int timeout) {
-        return new WebDriverWait(this.driver, timeout);
+    protected void driverWaitElement(ExpectedCondition<?> expectedCondition){
+        WebDriverWait wait = new WebDriverWait(this.driver,15);
+        wait.until(expectedCondition);
     }
 }
