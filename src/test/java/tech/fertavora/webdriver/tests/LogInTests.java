@@ -19,7 +19,7 @@ public class LogInTests extends BaseTest {
 
     @Test(dataProvider = "LogInDataProvider")
     public void loginValidTest(String username, String password) {
-        LoginPage logInPage = new LoginPage(driver);
+        LoginPage logInPage = new LoginPage(this.driver);
         InventoryPage inventoryPage = logInPage
                 .goToPage()
                 .setInputUsername(username)
@@ -32,7 +32,7 @@ public class LogInTests extends BaseTest {
 
     @Test
     public void loginInvalidTest(){
-        LoginPage logInPage = new LoginPage(driver);
+        LoginPage logInPage = new LoginPage(this.driver);
         String error = logInPage
             .goToPage()
             .setInputUsername("locked_out_user")
