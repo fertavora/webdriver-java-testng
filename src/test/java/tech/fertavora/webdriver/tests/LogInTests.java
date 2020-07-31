@@ -1,12 +1,15 @@
 package tech.fertavora.webdriver.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tech.fertavora.pageobjects.InventoryPage;
 import tech.fertavora.pageobjects.LoginPage;
 
 public class LogInTests extends BaseTest {
+
+    private LoginPage loginPage;
 
     @DataProvider(name = "LogInDataProvider")
     public Object[][] peopleData() {
@@ -17,10 +20,14 @@ public class LogInTests extends BaseTest {
         };
     }
 
+    @BeforeClass
+    public void setLoginPage() {
+        loginPage = new LoginPage(this.driver);
+    }
+
     @Test(dataProvider = "LogInDataProvider")
     public void loginValidTest(String username, String password) {
-        LoginPage logInPage = new LoginPage(this.driver);
-        InventoryPage inventoryPage = logInPage
+        InventoryPage inventoryPage = loginPage
                 .goToPage()
                 .setInputUsername(username)
                 .setInputPassword(password)
@@ -32,8 +39,7 @@ public class LogInTests extends BaseTest {
 
     @Test
     public void loginInvalidTest(){
-        LoginPage logInPage = new LoginPage(this.driver);
-        String error = logInPage
+        String error = loginPage
             .goToPage()
             .setInputUsername("locked_out_user")
             .setInputPassword("secret_sauce")
