@@ -1,9 +1,9 @@
 package tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import pageobjects.HomePage;
+import tech.fertavora.webdriver.tests.BaseTest;
 import pageobjects.HeaderPage;
 
 public class FunctionalTests extends BaseTest{
