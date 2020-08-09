@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 public class CartPage extends BasePage {
 
     private final By cartCheckoutButton = By.className("checkout_button");
-    private final By cartQtyLabel = By.className("cart_quantity_label");
-    private final By cartDescriptionLabel = By.className("cart_desc_label");
+    // private final By cartQtyLabel = By.className("cart_quantity_label");
+    // private final By cartDescriptionLabel = By.className("cart_desc_label");
 
     /***
      * The Shoping Cart Page Object constructor

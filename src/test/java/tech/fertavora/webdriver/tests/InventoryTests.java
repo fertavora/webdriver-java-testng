@@ -55,7 +55,7 @@ public class InventoryTests extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "GoToProductDetailDataProvider")
+    @Test(dataProvider = "GoToProductDetailDataProvider", enabled = false)
     public void goToProductDetail(){
         // data provider from title and image?
     }

@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-import tech.fertavora.pageobjects.LoginPage;
 import tech.fertavora.webdriver.utils.PropertiesHelper;
 
 
