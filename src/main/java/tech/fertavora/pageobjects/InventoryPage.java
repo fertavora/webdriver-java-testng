@@ -10,7 +10,7 @@ public class InventoryPage extends BasePage implements IPage {
 
     private final By inventoryItems = By.className("inventory_item");
     private final By inventoryItemsNames = By.className("inventory_item_name");
-    private final By inventoryItemsImages = By.cssSelector("div[class='inventory_item_img']");
+    private final By inventoryItemsImages = By.cssSelector("img[class='inventory_item_img']");
     private final By inventoryItemsAddButtons = By.cssSelector(".btn_primary.btn_inventory");
     private final By inventoryItemsRemoveButtons = By.cssSelector(".btn_secondary.btn_inventory");
     // todo review this locator for the remove scenario adding products with setCartState
@@ -105,12 +105,12 @@ public class InventoryPage extends BasePage implements IPage {
     /**
      * Clicks a product name by its index
      * @param nameIndex The index of the item name to be clicked
-     * @return InventoryPage The current inventory page
+     * @return InventoryItemPage The current inventory page
      */
-    public InventoryPage clickItemNameByIndex(int nameIndex){
+    public InventoryItemPage clickItemNameByIndex(int nameIndex){
         List<WebElement> removeButtonsList = driver.findElements(this.inventoryItemsNames);
         removeButtonsList.get(nameIndex).click();
-        return this;
+        return new InventoryItemPage(this.driver);
     }
 
     /**
@@ -118,10 +118,10 @@ public class InventoryPage extends BasePage implements IPage {
      * @param imageIndex The index of the item name to be clicked
      * @return InventoryPage The current inventory page
      */
-    public InventoryPage clickItemImageByIndex(int imageIndex){
+    public InventoryItemPage clickItemImageByIndex(int imageIndex){
         List<WebElement> removeButtonsList = driver.findElements(this.inventoryItemsImages);
         removeButtonsList.get(imageIndex).click();
-        return this;
+        return new InventoryItemPage(this.driver);
     }
 
     /**

@@ -46,18 +46,20 @@ public class InventoryTests extends BaseTest {
 
     }
 
-    @DataProvider(name = "GoToProductDetailDataProvider")
-    public Object[][] peopleData() {
-        return new Object[][]{
-                {"standard_user", "secret_sauce"},
-                {"problem_user", "secret_sauce"},
-                {"performance_glitch_user", "secret_sauce"}
-        };
+    @Test
+    public void goToProductDetailFromNameClick() throws InterruptedException {
+        inventoryPage
+            .goToPage()
+            .clickItemNameByIndex(0);
+        Thread.sleep(3000);
     }
 
-    @Test(dataProvider = "GoToProductDetailDataProvider", enabled = false)
-    public void goToProductDetail(){
-        // data provider from title and image?
+    @Test
+    public void goToProductDetailFromImageClick() throws InterruptedException {
+        inventoryPage
+            .goToPage()
+            .clickItemImageByIndex(0);
+        Thread.sleep(3000);
     }
 
     @Test(enabled = false)
