@@ -2,7 +2,6 @@ package tech.fertavora.webdriver.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tech.fertavora.pageobjects.InventoryPage;
 
@@ -46,20 +45,26 @@ public class InventoryTests extends BaseTest {
 
     }
 
-    @Test
+    @Test(priority = 4)
     public void goToProductDetailFromNameClick() throws InterruptedException {
-        inventoryPage
+        String itemName = inventoryPage
             .goToPage()
-            .clickItemNameByIndex(0);
-        Thread.sleep(3000);
+            .clickItemNameByIndex(0)
+            .getItemDetailsName();
+        
+        Assert.assertNotNull(itemName);
+        Assert.assertNotEquals(itemName, "");
     }
 
-    @Test
+    @Test(priority = 5)
     public void goToProductDetailFromImageClick() throws InterruptedException {
-        inventoryPage
+        String itemName = inventoryPage
             .goToPage()
-            .clickItemImageByIndex(0);
-        Thread.sleep(3000);
+            .clickItemImageByIndex(0)
+            .getItemDetailsName();
+
+        Assert.assertNotNull(itemName);
+        Assert.assertNotEquals(itemName, "");
     }
 
     @Test(enabled = false)

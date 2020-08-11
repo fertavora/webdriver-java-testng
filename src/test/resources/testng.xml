@@ -1,8 +1,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Test Suite" verbose="1" >
-    <test name="Regression">
-        <packages>
-            <package name="tech.fertavora.webdriver.tests"/>
-        </packages>
+<suite name="Full Regression" parallel="tests" thread-count="2">
+    <test name="Inventory Tests">
+        <classes>
+            <class name="tech.fertavora.webdriver.tests.InventoryTests"/>
+        </classes>
+    </test>
+    <test name="LogIn Tests">
+        <classes>
+            <class name="tech.fertavora.webdriver.tests.LogInTests"/>
+        </classes>
     </test>
 </suite>

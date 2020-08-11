@@ -8,6 +8,8 @@ public class InventoryItemPage extends BasePage implements IPage {
 
     private By itemDetailsName = By.className("inventory_details_name");
     private By itemDetailsImage = By.className("inventory_details_img");
+    private By itemDetailsBackButton = By.className("inventory_details_back_button");
+    private By itemDetailsAddButton = By.cssSelector(".btn_primary.btn_inventory");
 
     /***
      * The Inventory Page Object constructor
@@ -37,5 +39,9 @@ public class InventoryItemPage extends BasePage implements IPage {
         driver.get(sauceDemoURL + "inventory-item.html?id=4");
         this.isReady();
         return null;
+    }
+
+    public String getItemDetailsName() {
+        return driver.findElement(this.itemDetailsName).getText();
     }
 }
