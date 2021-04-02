@@ -2,6 +2,7 @@ package tech.fertavora.webdriver.utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -18,14 +19,17 @@ public class WebdriverSetup {
         switch(location){
             case "remote":
                 DesiredCapabilities caps = new DesiredCapabilities();
+                ChromeOptions opt = new ChromeOptions();
                 caps.setCapability("browserName", browserName);
                 caps.setCapability("platform", "linux");
                 caps.setCapability("name", "My First Test");
-                driver = new RemoteWebDriver(new URL(SELENIUM_HOST), caps);
+                driver = new RemoteWebDriver(new URL(SELENIUM_HOST), opt);
                 break;
             case "local":
                 System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-                driver = new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");
+                driver = new ChromeDriver(options);
                 break;
             default:
                 throw new IllegalStateException("Unexpected WebdriverLocation value: " + location);
