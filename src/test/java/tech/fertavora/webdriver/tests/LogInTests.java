@@ -34,7 +34,7 @@ public class LogInTests extends BaseTest {
                 .clickLoginButton();
 
         inventoryPage.isReady();
-        Assert.assertEquals(inventoryPage.getInventoryPageTitle(), "Products", "The Inventory page title is not correct!");
+        Assert.assertEquals(inventoryPage.getInventoryPageTitle(), "PRODUCTS", "The Inventory page title is not correct!");
     }
 
     @Test

@@ -6,34 +6,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class InventoryItemPage extends BasePage implements IPage {
 
-    private By itemDetailsName = By.className("inventory_details_name");
-    private By itemDetailsImage = By.className("inventory_details_img");
-    private By itemDetailsBackButton = By.className("inventory_details_back_button");
-    private By itemDetailsAddButton = By.cssSelector(".btn_primary.btn_inventory");
+    private final By itemDetailsName = By.className("inventory_details_name");
+    private final By itemDetailsImage = By.className("inventory_details_img");
+    private final By itemDetailsBackButton = By.className("inventory_details_back_button");
+    private final By itemDetailsAddButton = By.cssSelector(".btn_primary.btn_inventory");
 
-    /***
-     * The Inventory Page Object constructor
-     * @param driver The webdriver for the base class constructor
-     */
     public InventoryItemPage(WebDriver driver){
         super(driver);
     }
 
-    /**
-     * See the interface method
-     * @return InventoryItemPage The inventory item page object in a ready state
-     */
     @Override
     public BasePage isReady() {
-        driverWaitElement(ExpectedConditions.visibilityOfAllElementsLocatedBy(this.itemDetailsName));
-        driverWaitElement(ExpectedConditions.visibilityOfAllElementsLocatedBy(this.itemDetailsImage));
-        return null;
+        waitForDisplayed(itemDetailsName);
+        waitForDisplayed(itemDetailsImage);
+        return this;
     }
 
-    /**
-     * See the interface method
-     * @return InventoryItemPage The inventory item page object in a ready state
-     */
     @Override
     public BasePage goToPage() {
         driver.get(sauceDemoURL + "inventory-item.html?id=4");

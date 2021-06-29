@@ -15,50 +15,29 @@ public class InventoryPage extends BasePage implements IPage {
     private final By inventoryItemsRemoveButtons = By.cssSelector(".btn_secondary.btn_inventory");
     // todo review this locator for the remove scenario adding products with setCartState
     // locator for remove by item id //*[contains(@id, 'item_*_')]/../following-sibling::div/button[contains(@class, 'btn_secondary')]
-    private final By inventoryPageTitle = By.className("product_label");
+    private final By inventoryPageTitle = By.cssSelector("span.title");
     private final By inventoryCartQtyBadge = By.cssSelector(".shopping_cart_badge");
     private final By inventoryGoToCartButton = By.id("shopping_cart_container");
 
-    /***
-     * The Inventory Page Object constructor
-     * @param driver The webdriver for the base class constructor
-     */
     public InventoryPage(WebDriver driver){
         super(driver);
     }
 
-    /**
-     * See the interface method
-     * @return InventoryPage The inventory page object in a ready state
-     */
-    public InventoryPage isReady() {
-        driverWaitElement(ExpectedConditions.visibilityOfAllElementsLocatedBy(this.inventoryItems));
+    public InventoryPage isReady() { //todo login required, should inject cookie session-username:standard_user
+        waitForDisplayed(inventoryItems);
         return this;
     }
 
-    /**
-     * See the interface method
-     * @return InventoryPage The inventory page object in a ready state
-     */
     public InventoryPage goToPage() {
         driver.get(sauceDemoURL + "inventory.html");
         this.isReady();
         return this.resetShoppingCart();
     }
 
-    /**
-     * Gets the list of inventory items
-     * @return List<WebElement> Inventory Items WebElements list
-     */
     public List<WebElement> getInventoryItemsList() {
         return this.driver.findElements(inventoryItems);
     }
 
-    /**
-     * Gets a product from the list by its name
-     * @param name The name of the product to be returned
-     * @return WebElement The product WebElement
-     */
     public WebElement getInventoryItemByName(String name) {
         List<WebElement> inventoryItems = this.getInventoryItemsList();
 
@@ -72,52 +51,28 @@ public class InventoryPage extends BasePage implements IPage {
         return null;
     }
 
-    /**
-     * Gets the inventory page title
-     * @return String the inventory page title
-     */
     public String getInventoryPageTitle() {
-        return driver.findElement(this.inventoryPageTitle).getText();
+        return driver.findElement(inventoryPageTitle).getText();
     }
 
-    /**
-     * Clicks a product add button by its index
-     * @param buttonIndex The index of the add button to be clicked
-     * @return InventoryPage The current inventory page
-     */
     public InventoryPage clickAddButtonByIndex(int buttonIndex){
         List<WebElement> addButtonsList = driver.findElements(this.inventoryItemsAddButtons);
         addButtonsList.get(buttonIndex).click();
         return this;
     }
 
-    /**
-     * Clicks a product remove button by its index
-     * @param buttonIndex The index of the remove button to be clicked
-     * @return InventoryPage The current inventory page
-     */
     public InventoryPage clickRemoveButtonByIndex(int buttonIndex){
         List<WebElement> removeButtonsList = driver.findElements(this.inventoryItemsRemoveButtons);
         removeButtonsList.get(buttonIndex).click();
         return this;
     }
 
-    /**
-     * Clicks a product name by its index
-     * @param nameIndex The index of the item name to be clicked
-     * @return InventoryItemPage The current inventory page
-     */
     public InventoryItemPage clickItemNameByIndex(int nameIndex){
         List<WebElement> removeButtonsList = driver.findElements(this.inventoryItemsNames);
         removeButtonsList.get(nameIndex).click();
         return new InventoryItemPage(this.driver);
     }
 
-    /**
-     * Clicks a product image by its index
-     * @param imageIndex The index of the item name to be clicked
-     * @return InventoryPage The current inventory page
-     */
     public InventoryItemPage clickItemImageByIndex(int imageIndex){
         List<WebElement> removeButtonsList = driver.findElements(this.inventoryItemsImages);
         removeButtonsList.get(imageIndex).click();
@@ -168,15 +123,11 @@ public class InventoryPage extends BasePage implements IPage {
         String jsMethod = "sessionStorage.setItem('cart-contents', '" + products.toString() + "');";
         runJavaScript(jsMethod);
         this.driver.navigate().refresh();
-        driverWaitElement(ExpectedConditions.visibilityOfElementLocated(inventoryCartQtyBadge));
+        waitForDisplayed(inventoryCartQtyBadge);
         return this;
     }
 
-    /**
-     * Checks whether the cart quantity badge is displayed
-     * @return boolean true for displayed, false for not displayed
-     */
-    public Boolean cartQtyBadgeIsDisplayed() {
-        return isElementDisplayed(inventoryCartQtyBadge, false);
+    public WebElement getCartQtyBadge() {
+        return waitForDisplayed(inventoryCartQtyBadge);
     }
 }

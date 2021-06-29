@@ -1,5 +1,6 @@
 package tech.fertavora.webdriver.tests;
 
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -30,18 +31,17 @@ public class InventoryTests extends BaseTest {
                 .setCartState(1)
                 .clickRemoveButtonByIndex(0);
 
-        boolean badgeDisplayed = inventoryPage.cartQtyBadgeIsDisplayed();
-        Assert.assertFalse(badgeDisplayed);
+        Assert.assertNotNull(inventoryPage.getCartQtyBadge());
     }
 
     @Test(priority = 3)
     public void goToCartTest(){
-        boolean checkoutButtonClickable = inventoryPage
+        WebElement checkoutButtonClickable = inventoryPage
                 .goToPage()
                 .clickGoToCartButton()
                 .cartCheckoutButtonIsClickable();
 
-        Assert.assertTrue(checkoutButtonClickable);
+        Assert.assertNotNull(checkoutButtonClickable);
 
     }
 

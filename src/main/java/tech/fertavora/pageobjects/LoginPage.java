@@ -15,69 +15,38 @@ public class LoginPage extends BasePage implements IPage {
         super(driver);
     }
 
-    /**
-     * See the interface method
-     * @return LoginPage The login page object in a ready state
-     */
     public LoginPage isReady() {
-        driverWaitElement(ExpectedConditions.visibilityOfElementLocated(inputUsername));
-        driverWaitElement(ExpectedConditions.visibilityOfElementLocated(buttonLogin));
+        waitForDisplayed(inputUsername);
+        waitForDisplayed(buttonLogin);
         return this;
     }
 
-    /**
-     * See the interface method
-     * @return LoginPage The login page object in a ready state
-     */
     public LoginPage goToPage(){
         driver.get(sauceDemoURL);
         return this.isReady();
     }
 
-    /**
-     * Enters the username in the username field
-     * @param username String the username string
-     * @return LoginPage The login page object
-     */
     public LoginPage setInputUsername(String username) {
         this.driver.findElement(inputUsername).sendKeys(username);
         return this;
     }
 
-    /**
-     * Enters the password in the password field
-     * @param password String the password string
-     * @return LoginPage The login page object
-     */
     public LoginPage setInputPassword(String password) {
         this.driver.findElement(inputPassword).sendKeys(password);
         return this;
     }
 
-    /**
-     * Clicks the login button in the login form
-     * @return LoginPage The login page object to verify an error message
-     */
     public LoginPage clickLoginButtonError() {
         this.driver.findElement(buttonLogin).click();
         return this;
     }
 
-    /**
-     * Clicks the login button in the login form for a valid login
-     * @return InventoryPage The inventory page object, landing page after log in
-     */
     public InventoryPage clickLoginButton() {
         this.driver.findElement(buttonLogin).click();
         return new InventoryPage(this.driver);
     }
 
-    /**
-     * The error message displayed after an invalid login
-     * @return String The error message string
-     */
     public String getErrorMessage() {
-        driverWaitElement(ExpectedConditions.visibilityOfElementLocated(errorMessage));
-        return driver.findElement(errorMessage).getText();
+        return waitForDisplayed(errorMessage).getText();
     }
 }
