@@ -24,7 +24,7 @@ public class InventoryTests extends BaseTest {
         Assert.assertEquals(cartQty, 1);
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, enabled = false)
     public void removeProductFromCartTest(){
          inventoryPage
                 .goToPage()

@@ -23,12 +23,15 @@ public class InventoryPage extends BasePage implements IPage {
         super(driver);
     }
 
-    public InventoryPage isReady() { //todo login required, should inject cookie session-username:standard_user
+    public InventoryPage isReady() {
         waitForDisplayed(inventoryItems);
         return this;
     }
 
     public InventoryPage goToPage() {
+        driver.get(sauceDemoURL);
+        Cookie userCookie = new Cookie("session-username", "standard_user");
+        driver.manage().addCookie(userCookie);
         driver.get(sauceDemoURL + "inventory.html");
         this.isReady();
         return this.resetShoppingCart();
@@ -79,19 +82,11 @@ public class InventoryPage extends BasePage implements IPage {
         return new InventoryItemPage(this.driver);
     }
 
-    /**
-     * Clicks the shopping cart button
-     * @return CartPage The shopping cart page
-     */
     public CartPage clickGoToCartButton(){
         driver.findElement(inventoryGoToCartButton).click();
         return new CartPage(this.driver);
     }
 
-    /***
-     * Returns the quantity of products already added to cart from the cart icon badge
-     * @return int The quantity of products in the car
-     */
     public int getCartQuantity(){
         if(driver.findElement(this.inventoryCartQtyBadge).isDisplayed()){
             return Integer.parseInt(driver.findElement(this.inventoryCartQtyBadge).getText(), 10);
@@ -99,20 +94,11 @@ public class InventoryPage extends BasePage implements IPage {
         return 0;
     }
 
-    /**
-     * Removes products from the shopping cart icon in the Inventory Page
-     * @return InventoryPage The current inventory page
-     */
     public InventoryPage resetShoppingCart(){
-        runJavaScript("sessionStorage.clear();");
+        runJavaScript("localStorage.clear();");
         return this;
     }
 
-    /**
-     * Sets the product cart state with the specified amount of products
-     * @param productsQuantity The amount of products to have in the cart. Should be 1 <= productsQuantity <= 6
-     * @return
-     */
     public InventoryPage setCartState(int productsQuantity) {
         // todo validate that 1 <= productsQuantity <= 6
         ArrayList<Integer> products = new ArrayList<Integer>();
@@ -120,9 +106,9 @@ public class InventoryPage extends BasePage implements IPage {
         for(int i=0; i < productsQuantity; i++){
             products.add(i+1);
         }
-        String jsMethod = "sessionStorage.setItem('cart-contents', '" + products.toString() + "');";
+        String jsMethod = "window.localStorage.setItem('cart-contents', '" + products.toString() + "');";
         runJavaScript(jsMethod);
-        this.driver.navigate().refresh();
+        driver.navigate().refresh();
         waitForDisplayed(inventoryCartQtyBadge);
         return this;
     }
